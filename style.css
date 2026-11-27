@@ -168,12 +168,6 @@ em{font-style:italic}
 .feature h3{font:600 1.3rem/1.2 var(--f-display);color:var(--wine-deep);margin-bottom:.4rem}
 .feature p{font-size:.92rem;color:var(--ink-soft)}
 
-/* ---------- Video ---------- */
-.video{display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center}
-.video__copy .btn{margin-top:1.6rem}
-.video__box{width:min(300px,78vw);padding:10px;border-radius:34px;background:#1b0a10;box-shadow:0 0 0 1.5px rgba(220,195,144,.5),0 40px 70px -25px rgba(0,0,0,.7)}
-.video__box video{width:100%;border-radius:25px;background:#000}
-
 /* ---------- Kenapa ---------- */
 .why{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
 .why__item{padding:2rem 1.8rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -250,7 +244,6 @@ em{font-style:italic}
   .hero__grid{grid-template-columns:1fr;gap:2.5rem}
   .hero__phone{order:2}
   .float--a{left:0}.float--b{right:-4px}.float--c{left:0}
-  .video{grid-template-columns:1fr;justify-items:center;text-align:center}
   .top__nav{display:none}
   .top .btn{margin-left:auto}
 }
