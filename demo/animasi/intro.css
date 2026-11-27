@@ -1,0 +1,162 @@
+/* ==========================================================
+   Muka depan (intro): ilustrasi kampung -> Welcome -> zum masuk
+   Semua kelas berawalan "iv-" supaya tidak bertembung dengan kad.
+   ========================================================== */
+.iv {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  overflow: hidden;
+  background: #2b3322 url("img/scene-wide.jpg") center / cover no-repeat;
+  transition: opacity 1.8s cubic-bezier(.4, 0, .2, 1);
+}
+.iv::before { /* sisi kabur apabila skrin lebar */
+  content: "";
+  position: absolute; inset: -40px;
+  background: url("img/scene-wide.jpg") center / cover no-repeat;
+  filter: blur(26px) brightness(.72);
+}
+.iv.is-done { opacity: 0; pointer-events: none; }
+
+.iv-stage {
+  position: relative;
+  width: min(480px, 100%);
+  height: 100vh;
+  height: 100svh;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #f6efdc;
+  box-shadow: 0 0 80px rgba(0, 0, 0, .55);
+}
+
+.iv-photo { position: absolute; inset: 0; overflow: hidden; transform-origin: 0 0; will-change: transform; backface-visibility: hidden; }
+.iv-rays, .iv-mist, .iv-particles, .iv-glow, .iv-panel { will-change: opacity, transform; }
+.iv-photo img { position: absolute; left: 0; top: 0; display: block; max-width: none; user-select: none; -webkit-user-drag: none; }
+#ivCouple { opacity: 0; }
+
+.iv-rays {
+  position: absolute; inset: 0; pointer-events: none; mix-blend-mode: soft-light;
+  background: linear-gradient(115deg, rgba(255, 240, 190, 0) 30%, rgba(255, 240, 190, .75) 48%, rgba(255, 240, 190, 0) 62%);
+  animation: ivRays 9s ease-in-out infinite alternate;
+}
+@keyframes ivRays { from { opacity: .35; transform: translateX(-4%); } to { opacity: .8; transform: translateX(4%); } }
+
+.iv-glow {
+  position: absolute; left: 50%; top: 31%; width: 120%; height: 38%;
+  transform: translate(-50%, -50%); pointer-events: none;
+  background: radial-gradient(closest-side, rgba(255, 250, 236, .82), rgba(255, 250, 236, .45) 55%, rgba(255, 250, 236, 0));
+}
+
+/* kabus */
+.iv-mist { position: absolute; inset: 0; pointer-events: none; opacity: var(--mist, .4); }
+.iv-mist i {
+  position: absolute; width: var(--w); height: var(--h); left: var(--x); top: var(--y);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, .95), rgba(255, 255, 255, .55) 55%, rgba(255, 255, 255, 0));
+  opacity: var(--o);
+  animation: ivDrift var(--d) ease-in-out infinite alternate;
+}
+.iv-mist i:nth-child(even) { animation-direction: alternate-reverse; }
+@keyframes ivDrift { from { transform: translateX(-6%) scale(1); } to { transform: translateX(8%) scale(1.08); } }
+
+.iv-fade {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background: linear-gradient(to top, rgba(251, 248, 239, .96) 0%, rgba(251, 248, 239, .85) 28%, rgba(251, 248, 239, .45) 46%, rgba(251, 248, 239, 0) 62%);
+}
+.iv-vignette { position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 90px rgba(20, 30, 10, .28); }
+
+/* kilauan ke kain krim -> sama dengan warna kertas kad */
+.iv-wash { position: absolute; inset: 0; pointer-events: none; opacity: 0; background: #f6f1e6; }
+
+/* zarah */
+.iv-particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.iv-firefly {
+  position: absolute; width: 5px; height: 5px; border-radius: 50%;
+  background: #fff6a8; box-shadow: 0 0 8px 3px rgba(255, 238, 120, .8);
+  animation: ivFly var(--t) ease-in-out infinite, ivBlink calc(var(--t) / 3) ease-in-out infinite;
+}
+@keyframes ivFly {
+  0% { transform: translate(0, 0); } 33% { transform: translate(var(--dx), calc(var(--dy) * -1)); }
+  66% { transform: translate(calc(var(--dx) * -.6), calc(var(--dy) * -1.7)); } 100% { transform: translate(0, 0); }
+}
+@keyframes ivBlink { 0%, 100% { opacity: .15; } 50% { opacity: 1; } }
+.iv-petal {
+  position: absolute; top: -20px; width: 9px; height: 12px;
+  background: radial-gradient(circle at 30% 30%, #ffd5e0, #f09ab5);
+  border-radius: 80% 0 80% 0; opacity: .85;
+  animation: ivFall var(--t) linear infinite; animation-delay: var(--delay);
+}
+@keyframes ivFall {
+  0% { transform: translate(0, -20px) rotate(0deg); }
+  50% { transform: translate(var(--sway), 50vh) rotate(200deg); }
+  100% { transform: translate(calc(var(--sway) * -.5), 110vh) rotate(400deg); }
+}
+
+/* teks */
+.iv-panel { position: absolute; left: 0; right: 0; padding: 0 28px; text-align: center; will-change: opacity, transform; }
+.iv-hero { top: 20%; }
+.iv-line { bottom: calc(15% + env(safe-area-inset-bottom)); opacity: 0; }
+
+.iv-mono {
+  display: flex; justify-content: center; align-items: center; gap: 18px;
+  font-family: "Playfair Display", Georgia, serif; font-weight: 400;
+  font-size: clamp(76px, 22vw, 108px); line-height: 1; color: #0f0b09;
+  animation: ivRise 1.4s .2s both cubic-bezier(.2, .7, .2, 1);
+}
+.iv-mono i { width: 2px; height: .82em; background: #0f0b09; display: block; }
+.iv-names {
+  margin: 6px 0 0;
+  font-family: "Pinyon Script", "Great Vibes", cursive; font-size: clamp(32px, 9vw, 42px); color: #0f0b09;
+  animation: ivRise 1.4s .6s both cubic-bezier(.2, .7, .2, 1);
+}
+.iv-date {
+  display: inline-block; margin: 12px 0 0; padding: 5px 26px;
+  font-family: "Playfair Display", Georgia, serif; font-size: 17px; letter-spacing: .06em; color: #1b1511;
+  border-top: 1.5px solid #1b1511; border-bottom: 1.5px solid #1b1511;
+  animation: ivRise 1.4s 1s both cubic-bezier(.2, .7, .2, 1);
+}
+@keyframes ivRise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+.iv-line p {
+  margin: 0;
+  font-family: "Kaushan Script", "Great Vibes", cursive; font-size: clamp(24px, 6.8vw, 31px); line-height: 1.4; color: #3a1d13;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .6);
+}
+
+/* butang Welcome */
+.iv-welcome {
+  position: absolute; left: 0; right: 0; margin: 0 auto; width: max-content;
+  bottom: calc(34px + env(safe-area-inset-bottom));
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 13px 44px; border-radius: 999px; cursor: pointer;
+  color: #fffdf4; border: 1px solid rgba(255, 255, 255, .6);
+  background: rgba(40, 30, 10, .38);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 26px rgba(30, 20, 0, .35), inset 0 1px 0 rgba(255, 255, 255, .35);
+  animation: ivRise 1.4s 1.4s both cubic-bezier(.2, .7, .2, 1);
+  transition: opacity .6s, background .25s;
+  -webkit-tap-highlight-color: transparent;
+}
+.iv-welcome::after {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
+  border: 1px solid rgba(255, 245, 210, .7);
+  animation: ivPulse 2.6s 2.8s ease-out infinite;
+}
+.iv-welcome span { font-family: "Pinyon Script", "Great Vibes", cursive; font-size: 30px; line-height: 1.1; }
+.iv-welcome small { font-family: "Cinzel", Georgia, serif; font-size: 8.5px; letter-spacing: .32em; text-transform: uppercase; opacity: .85; }
+.iv-welcome:hover { background: rgba(60, 45, 15, .5); }
+.iv-welcome.gone { opacity: 0; pointer-events: none; animation: none; }
+@keyframes ivPulse { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.28, 1.6); opacity: 0; } }
+
+/* ---------- Desktop / skrin lebar: penuhi seluruh skrin dengan gambar landskap ---------- */
+.iv--land .iv-stage { width: 100%; box-shadow: none; }
+.iv--land .iv-glow { top: 17%; height: 34%; width: 70%; }
+.iv--land .iv-hero { top: 5.5%; }
+.iv--land .iv-mono { font-size: clamp(56px, 11vh, 118px); gap: clamp(12px, 2vh, 22px); }
+.iv--land .iv-names { font-size: clamp(30px, 5vh, 52px); margin-top: 2px; }
+.iv--land .iv-date { font-size: clamp(14px, 2.1vh, 19px); margin-top: 8px; padding: 4px 24px; }
+.iv--land .iv-welcome { bottom: clamp(26px, 7vh, 64px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .iv-mist i, .iv-firefly, .iv-petal, .iv-rays { animation: none; }
+}
